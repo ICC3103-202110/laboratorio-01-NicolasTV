@@ -47,13 +47,12 @@ def choose_card(back_board):
 
     if row < len(back_board) and col < len(back_board[0]):
       break
-
+    if front_board[row_1][col_1] == " " or front_board[row_2][col_2] == " " :
+      break
+  
     print("Elige una coordenada valida")
 
   return row, col
-## if o elif ???####
-## falta comprobar cuando se eligen coordenadas con " "   ############################
-## falta restringir elegir la misma carta para armar una pareja ##########
 
 
 print("--------- Bienvenido al Memorice! ---------\n")
@@ -66,7 +65,7 @@ points = [0, 0]
 players = [user_1, user_2]
 
 while n_pairs % 2 != 0 and n_pairs > 0:
-    print("Debes ingresar un número par de cartas")
+    print("\nDebes ingresar un número par de cartas")
     n_pairs = int(input("¿Con cuántos pares de cartas van jugar? "))
 
 continue_playing = True
@@ -74,6 +73,8 @@ continue_playing = True
 numbers = generate_cards(n_pairs)
 random.shuffle(numbers)
 
+#front board es la cara de las cartas que vemos como jugadores (*).
+#back board es la cara de las cartas que estan en la mesa (numero).
 front_board, back_board = build_game(numbers)
 
 while continue_playing:
@@ -82,7 +83,6 @@ while continue_playing:
 
   print_board(aux_board)
 
-  # Elije una carta
   row_1, col_1 = choose_card(back_board)
   card_1 = back_board[row_1][col_1]
   aux_board[row_1][col_1] = str(card_1)
@@ -101,11 +101,10 @@ while continue_playing:
 
   else:
     print("\nPerdiste el turno")
-    # aux_board = front_board
     aux_board[row_1][col_1] = "*"
     aux_board[row_2][col_2] = "*"
     turn = next_turn(turn)
-
+    
   if points[0] + points[1] >= n_pairs:
     print("Terminó el juego... El ganador es:")
 
