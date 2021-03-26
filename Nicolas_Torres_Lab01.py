@@ -13,23 +13,35 @@ def generate_cards(n):
   
   return numbers
 
+
 def build_game(array):
   front_matrix = []
   back_matrix = []
 
   for i in range(0, len(array), 2):
-    front_matrix.append(['*', '*'])
+    front_matrix.append(["*", "*"])
     back_matrix.append([array[i], array[i + 1]])
 
   return front_matrix, back_matrix
+
+
+
+def print_board(matrix):
+  print("    0    1")
+  for i in range(len(matrix)):
+    print(i, matrix[i])
     
 
 
+def next_turn(turn):
+  if turn == 1:
+    return 0
+
+  return 1
         
-      
 
     
-print('--------- Bienvenido al Memorize! ---------\n')
+print("--------- Bienvenido al Memorize! ---------\n")
 user_1 = input("Ingresa el nombre de usuario 1: ")
 user_2 = input("Nombre de usuario 2: ")
 n_pairs = int(input("\n¿Con cuántos pares de cartas van a jugar? "))
@@ -40,7 +52,12 @@ players = [user_1, user_2]
 
 while n_pairs % 2 != 0 and n_pairs > 0:
     print("Debes ingresar un número par de cartas")
-    n_pairs = int(input("¿Con cuántos pares de cartas a jugar? "))
+    n_pairs = int(input("¿Con cuántos pares de cartas van jugar? "))
 
-   
+continue_playing = True
+
+numbers = generate_cards(n_pairs)
+random.shuffle(numbers)
+
+front_board, back_board = build_game(numbers)  
     
